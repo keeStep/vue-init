@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLOT</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" :style="{ fontSize: postFontSize + 'em' }">
+        <alert-box >Something bad happened<hr></alert-box>
+        <alert-box >You have no permission<hr></alert-box>
+        <alert-box >Pealse get off<hr></alert-box>
+    </div>   
+    
+    <script>
+        // 组件的插槽： <slot> 占位符
+        Vue.component('alert-box', {
+            template: `
+                <div>
+                    <strong>Error!</strong>
+                    <slot></slot>
+                </div> 
+            `
+        })
+
+        var app = new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

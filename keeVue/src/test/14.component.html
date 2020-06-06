@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPONENT</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post 
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            @enlarge="postFontSize += $event"
+        ></blog-post>
+
+        <hr>
+
+        <!-- 组件上使用 v-model； TODO 这里有点问题 -->
+        <custom-input v-model="searchText"></custom-input>
+    </div>
+
+        
+    
+    <script>
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+                <div>
+                    <h4>{{ post.title }}</h4>
+                    <button @click="$emit('enlarge', 0.01)">ENLARGE</button>
+                    <div v-html="post.content"></div>
+                </div> 
+            `
+        })
+
+        // 组件上使用 v-model // TODO 这里有点问题
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: `
+                <input
+                    :value="value"
+                    @input="$emit('input', $event.target.value)"
+                >
+            `
+        })
+
+        // 子组件一定要定义在Vue实例上面 ↑. 不然报错：
+        // [Vue warn]: Unknown custom element: <blog-post> - did you register the component correctly? 
+        // For recursive components, make sure to provide the "name" option.
+        var app = new Vue({
+            el:'#app',
+            data:{
+                posts: [
+                    { id: 1, title: 'KEE', content:'[Vue warn]: Unknown custom element: <is-notice> -  '},
+                    { id: 2, title: 'ORANGE', content:'did you register the component correctly?'},
+                    { id: 3, title: 'WINNER', content:'For recursive components, make sure to provide the "name" option.'}
+                ],
+                postFontSize: 1
+            }
+        })
+    </script>
+</body>
+</html>

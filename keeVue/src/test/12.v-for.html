@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF-ELSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table border="1">
+            <tr>
+                <td>序号</td>
+                <td>书名</td>
+                <td>作者</td>
+            </tr>
+            <tr v-for="(book,index) in books">
+                <td>{{index + 1}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+            </tr>
+        </table>
+
+        <br>
+        <hr>
+        <br>
+
+        <div v-for="(s,p,i) in site">{{s}}   -->>   {{p}}   -->>   {{i}}</div>
+    </div>
+    
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                books:[
+                    {
+                        name:'堂吉诃德',
+                        author:'塞万提斯'
+                    },{
+                        name:'简·爱',
+                        author:'夏洛蒂·勃朗特'
+                    },{
+                        name:'水浒传',
+                        author:'施耐庵'
+                    },{
+                        name:'钢铁是怎样炼成的',
+                        author:'尼古拉·奥斯特洛夫斯基'
+                    },
+                ],
+                site:{
+                    url:'www.kee.org',
+                    name:'羽子少年',
+                    sever:'CSDN'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-ON</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{counter}}
+        <input type="button" value="自增" v-on:click="counter++">
+    </div>
+    
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                counter:0
+            }
+        })
+    </script>
+</body>
+</html>

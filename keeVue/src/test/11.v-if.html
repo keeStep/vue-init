@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IF-ELSE</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <template v-if="isShow2">
+            <p>HELLO VUE</p>
+            <div>HELLO KEEEEE</div>
+            <span>www.kee.org</span>
+        </template>
+        <div v-if="a==1">HELLO VUE</div>
+        <div v-else-if="a==2">羽子少年</div>
+        <div v-else>OTHERS </div>
+
+        <hr>
+
+        <label>用户名</label>
+        <template v-if="loginType=='username'">
+            <input type="text" placeholder="请输入用户名" key="username">
+        </template>
+        <template v-else>
+            <input type="text" placeholder="请输入邮箱地址" key="email">
+            <input type="email" placeholder="PLEASE INPUT EMAIL">
+        </template>
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                isShow:false,
+                isShow2:false,
+                a:1,
+                loginType:'username'
+            }
+        })
+    </script>
+</body>
+</html>
