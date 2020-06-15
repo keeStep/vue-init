@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name:"Login",
   data() {
@@ -34,7 +35,17 @@ export default {
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          alert("登录成功");
+          this.postKeyValueRequest('/doLogin', this.loginForm).then(resp =>{
+            if(resp) {
+              window.sessionStorage.setItem("user", JSON.stringify(resp.obj));
+
+              // $router 通过 $ 获取当前 vue 对象的 router 对象
+              // replace() 回不到之前的页面；
+              // push() 可回到之前的页面；
+              this.$router.replace("/home");
+            }
+          })
+          
         } else {
           this.$message.error('您没有输入完成哦');
           return false;
