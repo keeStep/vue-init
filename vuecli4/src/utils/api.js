@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
-
+// 封装响应体拦截器
 axios.interceptors.response.use(
     success => {
         if (success.status && success.status == 200 && success.data.status == 500) {
@@ -37,6 +37,7 @@ axios.interceptors.response.use(
 
 let base = '';
 
+// 封装基于JSON参数的调用
 export const postKeyValueRequest = (url, params) => {
     return axios({
         method: 'post',
