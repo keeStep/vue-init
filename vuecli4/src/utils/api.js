@@ -10,7 +10,7 @@ axios.interceptors.response.use(
         }
 
         if (success.status && success.status == 200 && success.data.status == 200) {
-            Message.info({ message: success.data.msg })
+            Message.success({ message: success.data.msg })
             return success.data;
         }
 
@@ -19,6 +19,8 @@ axios.interceptors.response.use(
     error => {
         if (error.response.status == 504 || error.response.status == 404) {
             Message.error({ message: '服务器被吃了o(╯□╰)o' })
+        } else if (error.response.status == 500) {
+            Message.error({ message: '服务器内部错误o(╯□╰)o' })
         } else if (error.response.status == 403) {
             Message.error({ message: '权限不足，请联系管理员' })
         } else if (error.response.status == 401) {

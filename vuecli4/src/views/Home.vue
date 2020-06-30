@@ -3,17 +3,17 @@
     <el-container>
       <el-header class="homeHeader">
         <div class="title">微人事</div>
-        <el-dropdown>
+        <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
-            下拉菜单
-            <i class="el-icon-arrow-down el-icon--right"></i>
+            {{user.name}}
+            <i><img :src="user.userface" alt=""/></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+            <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
+            <el-dropdown-item command="setting">设置</el-dropdown-item>
+            <el-dropdown-item divided command="logout">注销登录</el-dropdown-item>
+            <!-- <el-dropdown-item disabled>双皮奶</el-dropdown-item> -->
+            <!-- <el-dropdown-item divided>蚵仔煎</el-dropdown-item> 分割线 -->
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -26,7 +26,35 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Home",
+  data() {
+    return {
+      user: JSON.parse(window.sessionStorage.getItem("user"))
+    }
+  },
+  methods: {
+    commandHandler(cmd) {
+      if (cmd == 'logout') {
+        this.$confirm('此操作将注销登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.getRequest("/logout");
+          // 清空登录数据
+          window.sessionStorage.removeItem("user");
+          this.$router.replace("/");
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消操作'
+          });          
+        });
+      }
+    }
+  }
+};
 </script>
 
 <style>
@@ -42,5 +70,21 @@ export default {};
 .homeHeader.title {
   font-size: 30px;
   font-family: "Franklin Gothic Medium";
+}
+
+.homeHeader.userInfo {
+  cursor: pointer;
+}
+
+.el-dropdown-link img {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  margin-left: 8px;
+}
+
+.el-dropdown-link {
+  display: flex;
+  align-items: center;
 }
 </style>
