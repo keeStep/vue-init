@@ -18,8 +18,39 @@
         </el-dropdown>
       </el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-main>Main</el-main>
+        <el-aside>
+          <!-- <el-menu @select="menuClick" -->
+          <el-menu router
+            default-active="4"
+            background-color="#fff"
+            text-color="#000"
+            active-text-color="#ffd04b">
+            <el-submenu index="1" v-for="(item, index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>{{item.name}}</span>
+              </template>
+              <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
+                {{child.name}}
+              </el-menu-item>
+            </el-submenu>
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">导航二</span>
+            </el-menu-item>
+            <el-menu-item index="3" disabled>
+              <i class="el-icon-document"></i>
+              <span slot="title">导航三</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">导航四</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-main>
+          <router-view/>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -34,6 +65,9 @@ export default {
     }
   },
   methods: {
+    // menuClick(index) {
+    //   this.$router.push(index)
+    // },
     commandHandler(cmd) {
       if (cmd == 'logout') {
         this.$confirm('此操作将注销登录, 是否继续?', '提示', {
